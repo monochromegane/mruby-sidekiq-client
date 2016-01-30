@@ -41,7 +41,11 @@ module Sidekiq
     end
 
     def normalized_hash(item_class)
-      DEFAULT_WORKER_OPTIONS
+      if item_class.is_a?(Class)
+        item_class.get_sidekiq_options
+      else
+        Sidekiq.default_worker_options
+      end
     end
   end
 end

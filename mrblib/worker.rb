@@ -22,6 +22,14 @@ module Sidekiq
       end
       alias_method :perform_at, :perform_in
 
+      def sidekiq_options(opts={})
+        @sidekiq_options_hash = get_sidekiq_options.merge(opts.stringify_keys)
+      end
+
+      def get_sidekiq_options
+        @sidekiq_options_hash ||= Sidekiq.default_worker_options
+      end
+
       def client_push(item)
         Sidekiq::Client.new(Sidekiq.redis).push(item.stringify_keys)
       end
