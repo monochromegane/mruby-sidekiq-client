@@ -1,5 +1,10 @@
 module Sidekiq
 
+  DEFAULT_WORKER_OPTIONS = {
+    'retry' => true,
+    'queue' => 'default'
+  }
+
   def self.configure_client
     yield self
   end
@@ -14,5 +19,9 @@ module Sidekiq
 
   def self.redis
     @redis || Sidekiq::RedisConnection.create
+  end
+
+  def self.dump_json(object)
+    JSON.generate(object)
   end
 end
