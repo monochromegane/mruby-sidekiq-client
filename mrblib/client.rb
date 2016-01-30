@@ -16,7 +16,7 @@ module Sidekiq
 
     def raw_push(payload)
       if payload['at']
-        at = payload.delete('at').to_s
+        at = payload.delete('at')
         redis.zadd('schedule', at, Sidekiq.dump_json(payload))
       else
         q = payload['queue']
