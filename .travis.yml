@@ -2,6 +2,8 @@ language: c
 compiler:
   - gcc
   - clang
+services:
+  - redis-server
 before_install:
     - sudo apt-get -qq update
 install:
